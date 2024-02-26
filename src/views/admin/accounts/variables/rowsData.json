@@ -1,0 +1,12 @@
+[
+  {
+    "name":"Santander",
+    "balance": 123.50, 
+    "currency": "BRL"
+  },
+  {
+    "name":"Trading212",
+    "balance": 16123.50, 
+    "currency": "EUR"
+  }
+]
