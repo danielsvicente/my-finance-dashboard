@@ -29,7 +29,7 @@ export default function Dashboard() {
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
             <SimpleGrid gap='20px' mb='20px'>
-                <SimpleGrid columns={{ base: 1, md: 4, xl: 7}} gap='20px' mb='20px'>
+                <SimpleGrid columns={{ base: 1, md: 4, xl: 7}} gap='20px'>
                         {accounts.map((acc) => (
                             <MiniStatistics 
                                 growth={acc.variation.toFixed(2)}
@@ -39,9 +39,9 @@ export default function Dashboard() {
                                 precision={2} />
                         ))}
                 </SimpleGrid>
-                <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
+                <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px'>
                     <TotalBalance />
-                    <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
+                    <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' >
                         <PieCardAccounts />
                         <PieCardTotal />
                     </SimpleGrid>

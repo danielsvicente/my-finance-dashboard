@@ -1,11 +1,8 @@
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import PieChart from "components/charts/PieChart";
-import { VSeparator } from "components/separator/Separator";
 import React, {useState, useEffect } from "react";
-
 import axios from "axios";
-import { CgPacman } from "react-icons/cg";
 
 export default function PieCardAccounts(props) {
   const { ...rest } = props;
@@ -70,7 +67,6 @@ export default function PieCardAccounts(props) {
             chart.fractions.push(percentage(total.data.balance, value));
           });
           setData(chart);
-          console.log("#1");
         } catch (error) {
           console.error('Error fetching data: ', error);
         }
@@ -81,11 +77,7 @@ export default function PieCardAccounts(props) {
 
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  const cardColor = useColorModeValue("white", "navy.700");
-  const cardShadow = useColorModeValue(
-    "0px 18px 40px rgba(112, 144, 176, 0.12)",
-    "unset"
-  );
+
   return (
     <Card p='15px' align='center' direction='column' w='100%' {...rest}>
       <Flex
@@ -107,33 +99,6 @@ export default function PieCardAccounts(props) {
             chartOptions={chartConfig.options}
           />
       )}
-      {/* <Card
-        bg={cardColor}
-        flexDirection='row'
-        boxShadow={cardShadow}
-        w='100%'
-        p='15px'
-        px='20px'
-        mt='15px'
-        mx='auto'>
-          {componentData?.chart.labels && componentData.chart.labels.map((label) => 
-            <Flex direction='column' py='5px' me='15px' >
-              <Flex align='center'>
-                <Box h='8px' w='8px' bg='brand.500' borderRadius='50%' me='4px' />
-                <Text
-                  fontSize='xs'
-                  color='secondaryGray.600'
-                  fontWeight='700'
-                  mb='5px'>
-                  {label}
-                </Text>
-              </Flex>
-              <Text fontSize='lg' color={textColor} fontWeight='700'>
-                0%
-              </Text>
-            </Flex>
-          )}
-      </Card> */}
     </Card>
   );
 }

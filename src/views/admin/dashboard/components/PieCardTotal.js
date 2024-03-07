@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import PieChart from "components/charts/PieChart";
 import { VSeparator } from "components/separator/Separator";
@@ -92,16 +92,6 @@ export default function PieCardTotal(props) {
         <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
           Total per Type
         </Text>
-        {/* <Select
-          fontSize='sm'
-          variant='subtle'
-          defaultValue='monthly'
-          width='unset'
-          fontWeight='700'>
-          <option value='daily'>Daily</option>
-          <option value='monthly'>Monthly</option>
-          <option value='yearly'>Yearly</option>
-        </Select> */}
       </Flex>
 
       { chartConfig?.series && (
