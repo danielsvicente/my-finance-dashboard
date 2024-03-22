@@ -9,6 +9,7 @@ import axios from "axios";
 export default function PieCardTotal(props) {
   const { ...rest } = props;
   const [chartConfig, setData] = useState({});
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   let chart = {
       options: {
         labels: ["Invested", "Uninvested"],
@@ -59,7 +60,7 @@ export default function PieCardTotal(props) {
     
     const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:8000/accounts/total');
+          const response = await axios.get(`${backendUrl}/accounts/total`);
           const invested_percentage = percentage(response.data.balance, response.data.invested);
           const uninvested_percentage = percentage(response.data.balance, response.data.uninvested);
           chart.series = [response.data.invested, response.data.uninvested];

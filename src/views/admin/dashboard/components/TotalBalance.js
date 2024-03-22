@@ -21,6 +21,7 @@ import axios from "axios";
 
 export default function TotalBalance(props) {
   const { ...rest } = props;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [data, setData] = useState({
     balance: {
       current: 0.00,
@@ -31,7 +32,7 @@ export default function TotalBalance(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/accounts/total/history/');
+        const response = await axios.get(`${backendUrl}/accounts/total/history/`);
 
         if (response.data.length > 0) {
           const currentBalance = response.data[response.data.length - 1].balance;

@@ -7,6 +7,7 @@ import axios from "axios";
 export default function PieCardAccounts(props) {
   const { ...rest } = props;
   const [chartConfig, setData] = useState({});
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   let chart = {
       options: {
         labels: [],
@@ -52,8 +53,8 @@ export default function PieCardAccounts(props) {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const accounts = await axios.get('http://localhost:8000/accounts');
-          const total = await axios.get('http://localhost:8000/accounts/total');
+          const accounts = await axios.get(`${backendUrl}/accounts`);
+          const total = await axios.get(`${backendUrl}/accounts/total`);
           chart.series = [];
           chart.fractions = [];
           accounts.data.map((acc) => {

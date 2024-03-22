@@ -10,10 +10,11 @@ import PieCardTotal from "./components/PieCardTotal";
 export default function Dashboard() {
 
     const [accounts, setAccounts] = useState([]);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     
     const fetchData = async () => {
         try {
-          const response = await axios.get('http://localhost:8000/accounts');
+          const response = await axios.get(`${backendUrl}/accounts`);
           setAccounts(response.data);
         } catch (error) {
           console.error('Error fetching data: ', error);

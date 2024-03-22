@@ -29,6 +29,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 export default function ColumnsTable(props) {
   const { columnsData, tableData } = props;
   const [accounts, setAccounts] = useState([]);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   
   const currencyFormat = (num) => {
     return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -36,7 +37,7 @@ export default function ColumnsTable(props) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/accounts');
+      const response = await axios.get(`${backendUrl}/accounts`);
       setAccounts(response.data);
     } catch (error) {
       console.error('Error fetching data: ', error);
@@ -73,7 +74,7 @@ export default function ColumnsTable(props) {
   const deleteAccount = async (accountId) => {
     console.log(`Deleting account ${accountId}`);
     try {
-      await axios.delete(`http://localhost:8000/accounts/${accountId}`);
+      await axios.delete(`${backendUrl}/accounts/${accountId}`);
       const updatedAccounts = accounts.filter(account => account.id !== accountId);
       console.log(updatedAccounts);
       setAccounts(updatedAccounts);

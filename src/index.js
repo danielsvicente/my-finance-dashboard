@@ -22,5 +22,3 @@ ReactDOM.render(
 	</ChakraProvider>,
 	document.getElementById('root')
 );
-
-// http://localhost:3000/horizon-ui-chakra#/admin/default

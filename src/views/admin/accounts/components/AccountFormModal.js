@@ -28,13 +28,15 @@ const validationSchema = Yup.object().shape({
 
 export default function AccountFormModal({ account, isOpen, onClose }) {
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     const sendToServer = (values, setSubmitting) => {
         const handleResponse = (message, data) => {
             setSubmitting(false);
             onClose();
         };
         if (account) {
-            axios.put(`http://localhost:8000/accounts/${account.id}`, values)
+            axios.put(`${backendUrl}/accounts/${account.id}`, values)
                 .then(response => {
                     handleResponse('Successfully created item', response.data);
                 })
@@ -42,7 +44,7 @@ export default function AccountFormModal({ account, isOpen, onClose }) {
                     handleResponse('Error creating item', error);
                 });
             } else {
-                axios.post('http://localhost:8000/accounts', values)
+                axios.post(`${backendUrl}/accounts`, values)
                 .then(response => {
                     handleResponse('Successfully created item', response.data);
                 })
