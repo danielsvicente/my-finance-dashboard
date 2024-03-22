@@ -1,0 +1,6 @@
+node_modules
+.env.development
+.gitignore
+Dockerfile
+CHANGELOG.md
+LICENSE
