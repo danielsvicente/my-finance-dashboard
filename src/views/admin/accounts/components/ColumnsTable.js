@@ -9,7 +9,6 @@ import {
   Thead,
   Tr,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useMemo, useState, useEffect} from "react";
 import {
@@ -23,7 +22,8 @@ import {
 import axios from 'axios';
 import Card from "components/card/Card";
 import AccountFormModal from "./AccountFormModal";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import NoteFormModal from "./NoteFormModal";
+import { ChatIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 
 export default function ColumnsTable(props) {
@@ -86,19 +86,27 @@ export default function ColumnsTable(props) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [showAccountFormModal, setShowAccountFormModal] = useState(false);
+  const [showNoteFormModal, setShowNoteFormModal] = useState(false);
 
   // Function to open the modal
-  const openModal = (acc) => {
+  const openAccountFormModal = (acc) => {
     setSelectedAccount(acc);
-    onOpen();
+    setShowAccountFormModal(true);
+  };
+  const openNoteFormModal = (acc) => {
+    setSelectedAccount(acc);
+    setShowNoteFormModal(true);
   };
 
   // Function to close the modal
-  const closeModal = () => {
+  const closeAccountFormModal = () => {
     fetchData();
-    onClose();
+    setShowAccountFormModal(false);
+  };
+  const closeNoteFormModal = () => {
+    setShowNoteFormModal(false);
   };
 
   return (
@@ -118,16 +126,14 @@ export default function ColumnsTable(props) {
           variant="outline" 
           colorScheme="brand" 
           size="md" 
-          onClick={() => openModal(null)}
+          onClick={() => openAccountFormModal(null)}
         >
           + New Account
         </Button>
 
-        <AccountFormModal
-          account={selectedAccount}
-          isOpen={isOpen}
-          onClose={closeModal}
-        />
+        {showAccountFormModal && <AccountFormModal account={selectedAccount} isOpen={showAccountFormModal} onClose={closeAccountFormModal} />}
+        {showNoteFormModal && <NoteFormModal account={selectedAccount} isOpen={showNoteFormModal} onClose={closeNoteFormModal} />}
+
       </Flex>
 
       <Table {...getTableProps()} variant='simple' color='gray.500' size="sm" mb='24px' >
@@ -200,8 +206,9 @@ export default function ColumnsTable(props) {
                   } else if (cell.column.Header === "ACTION") {
                     data = (
                       <Flex w="10px">
-                        <Button leftIcon={<EditIcon/>} onClick={() => openModal(row.values)}></Button>
+                        <Button leftIcon={<EditIcon/>} onClick={() => openAccountFormModal(row.values)}></Button>
                         <Button leftIcon={<DeleteIcon/>} onClick={() => deleteAccount(row.values.id)} ></Button>
+                        <Button leftIcon={<ChatIcon/>} onClick={() => openNoteFormModal(row.values)} ></Button>
                       </Flex>
                     );
                   }
